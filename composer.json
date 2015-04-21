@@ -1,16 +1,21 @@
 {
-    "name": "paquettg/php-html-parser",
+    "name": "tegansnyder/php-html-parser",
     "type": "library",
     "description": "An HTML DOM parser. It allows you to manipulate HTML. Find tags on an HTML page with selectors just like jQuery.",
     "version": "1.6.4",
     "keywords": ["html", "dom", "parser"],
-    "homepage": "https://github.com/paquettg/php-html-parser",
+    "homepage": "https://github.com/tegansnyder/php-html-parser",
     "license": "MIT",
     "authors": [
         {
             "name": "Gilles Paquette",
             "email": "paquettg@gmail.com",
             "homepage": "http://gillespaquette.ca"
+        },
+        {
+            "name": "Tegan Snyder",
+            "email": "tsnyder@tegdesign.com",
+            "homepage": "http://www.tegdesign.com"
         }
     ],
     "require": {
