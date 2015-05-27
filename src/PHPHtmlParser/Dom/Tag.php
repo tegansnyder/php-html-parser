@@ -2,7 +2,6 @@
 namespace PHPHtmlParser\Dom;
 
 use PHPHtmlParser\Dom;
-use stringEncode\Encode;
 
 class Tag {
 
@@ -31,13 +30,6 @@ class Tag {
 	 * Tag noise
 	 */
 	protected $noise = '';
-
-	/**
-	 * The encoding class to... encode the tags
-	 *
-	 * @var mixed
-	 */
-	protected $encode = null;
 
 	public function __construct($name)
 	{
@@ -83,11 +75,6 @@ class Tag {
 	public function isSelfClosing()
 	{
 		return $this->selfclosing;
-	}
-
-	public function setEncoding(Encode $encode)
-	{
-		$this->encode = $encode;
 	}
 
 	/**
@@ -167,10 +154,10 @@ class Tag {
 			return null;
 		}
 		$value = $this->attr[$key]['value'];
-		if (is_string($value) AND ! is_null($this->encode))
+		if (is_string($value))
 		{
 			// convert charset
-			$this->attr[$key]['value'] = $this->encode->convert($value);
+			$this->attr[$key]['value'] = $value;
 		}
 
 		return $this->attr[$key];

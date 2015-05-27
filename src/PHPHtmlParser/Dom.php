@@ -5,7 +5,6 @@ use PHPHtmlParser\Dom\HtmlNode;
 use PHPHtmlParser\Dom\TextNode;
 use PHPHtmlParser\Exceptions\NotLoadedException;
 use PHPHtmlParser\Exceptions\StrictException;
-use stringEncode\Encode;
 
 class Dom {
 	
@@ -314,7 +313,6 @@ class Dom {
 		$this->content = new Content($html);
 
 		$this->parse();
-		$this->detectCharset();
 
 		return $this;
 	}
@@ -582,50 +580,4 @@ class Dom {
 		return $return;
 	}
 
-	/**
-	 * Attempts to detect the charset that the html was sent in.
-	 *
-	 * @return bool
-	 */
-	protected function detectCharset()
-	{
-		// set the default
-		$encode = new Encode;
-		$encode->from($this->defaultCharset);
-		$encode->to($this->defaultCharset);
-
-		if ( ! is_null($this->options->enforceEncoding))
-		{
-			//  they want to enforce the given encoding
-			$encode->from($this->options->enforceEncoding);
-			$encode->to($this->options->enforceEncoding);
-			return false;
-		}
-
-		$meta = $this->root->find('meta[http-equiv=Content-Type]', 0);
-		if (is_null($meta))
-		{
-			// could not find meta tag
-			$this->root->propagateEncoding($encode);
-			return false;
-		}
-		$content = $meta->content;
-		if (empty($content))
-		{
-			// could not find content
-			$this->root->propagateEncoding($encode);
-			return false;
-		}
-		$matches = [];
-		if (preg_match('/charset=(.+)/', $content, $matches))
-		{
-			$encode->from(trim($matches[1]));
-			$this->root->propagateEncoding($encode);
-			return true;
-		}
-		
-		// no charset found
-		$this->root->propagateEncoding($encode);
-		return false;
-	}
 }

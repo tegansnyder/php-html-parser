@@ -5,7 +5,6 @@ use PHPHtmlParser\Selector;
 use PHPHtmlParser\Exceptions\ChildNotFoundException;
 use PHPHtmlParser\Exceptions\CircularException;
 use PHPHtmlParser\Exceptions\ParentNotFoundException;
-use stringEncode\Encode;
 
 /**
  * Dom node object.
@@ -50,13 +49,6 @@ abstract class AbstractNode {
 	 * @var string
 	 */
 	protected $id;
-
-	/**
-	 * The encoding class used to encode strings.
-	 *
-	 * @var mixed
-	 */
-	protected $encode;
 
 	public function __construct()
 	{
@@ -164,23 +156,6 @@ abstract class AbstractNode {
 		$this->clear();
 
 		return $this;
-	}
-
-	/** 
-	 * Sets the encoding class to this node and propagates it
-	 * to all its children.
-	 *
-	 * @param Encode $encode
-	 */
-	public function propagateEncoding(Encode $encode)
-	{
-		$this->encode = $encode;
-		$this->tag->setEncoding($encode);
-		// check children
-		foreach ($this->children as $id => $child)
-		{
-			$child['node']->propagateEncoding($encode);
-		}
 	}
 
 	/**
