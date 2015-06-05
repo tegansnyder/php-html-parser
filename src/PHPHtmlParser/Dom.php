@@ -110,17 +110,19 @@ class Dom {
 	 * @param array $option
 	 * @chainable
 	 */
-	public function load($str, $options = [])
+	public function load($str, $options = [], $basic_mode = true)
 	{
-		// check if it's a file
-		if (is_file($str))
-		{
-			return $this->loadFromFile($str, $options);
-		}
-		// check if it's a url
-		if (preg_match("/^https?:\/\//i",$str))
-		{
-			return $this->loadFromUrl($str, $options);
+		if (!$basic_mode) {
+			// check if it's a file
+			if (is_file($str))
+			{
+				return $this->loadFromFile($str, $options);
+			}
+			// check if it's a url
+			if (preg_match("/^https?:\/\//i",$str))
+			{
+				return $this->loadFromUrl($str, $options);
+			}
 		}
 
 		return $this->loadStr($str, $options);
