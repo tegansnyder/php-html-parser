@@ -1,7 +1,7 @@
 PHP Html Parser
 ==========================
 
-Version 1.6.4
+Version 1.6.7
 
 [![Build Status](https://travis-ci.org/paquettg/php-html-parser.png)](https://travis-ci.org/paquettg/php-html-parser)
 [![Coverage Status](https://coveralls.io/repos/paquettg/php-html-parser/badge.png)](https://coveralls.io/r/paquettg/php-html-parser)
@@ -89,6 +89,21 @@ $html = $dom->outerHtml;
 ```
 
 As long as the Connector object implements the `PHPHtmlParser\CurlInterface` interface properly it will use that object to get the content of the url instead of the default `PHPHtmlParser\Curl` class.
+
+Loading Strings
+---------------
+
+Loading a string directly, with out the checks in `load()` is also easely done.
+
+```php
+use PHPHtmlParser\Dom;
+
+$dom = new Dom;
+$dom->loadStr('<html>String</html>', [])
+$html = $dom->outerHtml;
+```
+
+If the string is to long, depending on your file system, the `load()` method will throw a warning. If this happens you can just call the above method to bypass the `is_file()` check in the `load()` method.
 
 Options
 -------

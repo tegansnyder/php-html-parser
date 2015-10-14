@@ -4,22 +4,22 @@ namespace PHPHtmlParser\Dom;
 use PHPHtmlParser\Exceptions\UnknownChildTypeException;
 use PHPHtmlParser\Exceptions\ChildNotFoundException;
 
-class HtmlNode extends AbstractNode {
+class HtmlNode extends ArrayNode {
 
 	/**
-	 * Remembers what the innerHtml was if it was scaned previously.
+	 * Remembers what the innerHtml was if it was scanned previously.
 	 */
 	protected $innerHtml = null;
 
 	/**
-	 * Remembers what the outerHtml was if it was scaned previously.
+	 * Remembers what the outerHtml was if it was scanned previously.
 	 *
 	 * @var string
 	 */
 	protected $outerHtml = null;
 
 	/**
-	 * Remembers what the text was if it was scaned previously.
+	 * Remembers what the text was if it was scanned previously.
 	 *
 	 * @var string
 	 */
@@ -35,7 +35,9 @@ class HtmlNode extends AbstractNode {
 
 	/**
 	 * Sets up the tag of this node.
-	 */
+     *
+     * @param $tag
+     */
 	public function __construct($tag)
 	{
 		if ( ! $tag instanceof Tag)
@@ -50,7 +52,7 @@ class HtmlNode extends AbstractNode {
 	 * Gets the inner html of this node.
 	 *
 	 * @return string
-	 * @throws UnkownChildTypeException
+	 * @throws UnknownChildTypeException
 	 */
 	public function innerHtml()
 	{
@@ -201,5 +203,15 @@ class HtmlNode extends AbstractNode {
 		$this->innerHtml = null;
 		$this->outerHtml = null;
 		$this->text		 = null;
+	}
+
+	/**
+	 * Returns all children of this html node.
+	 * 
+	 * @return array
+	 */
+	protected function getIteratorArray()
+	{
+		return $this->getChildren();
 	}
 }
