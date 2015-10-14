@@ -123,6 +123,20 @@ class DomTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals('<br><p>Hey bro, <a href="google.com" data-quote="\"">click here</a></p></br>', $dom->find('div', 0)->innerHtml);
 	}
 
+	public function testLoadNoValueAttribute()
+	{
+		$dom = new Dom;
+		$dom->load('<div class="content"><div class="grid-container" ui-view>Main content here</div></div>');
+		$this->assertEquals('<div class="content"><div class="grid-container" ui-view>Main content here</div></div>', $dom->innerHtml);
+	}
+
+	public function testLoadNoValueAttributeBefore()
+	{
+		$dom = new Dom;
+		$dom->load('<div class="content"><div ui-view class="grid-container">Main content here</div></div>');
+		$this->assertEquals('<div class="content"><div ui-view class="grid-container">Main content here</div></div>', $dom->innerHtml);
+	}
+
 	public function testLoadUpperCase()
 	{
 		$dom = new Dom;
@@ -242,5 +256,19 @@ class DomTest extends PHPUnit_Framework_TestCase {
 			'enforceEncoding' => 'UTF-8',
 		]);
 		$this->assertNotEquals('<input type="submit" tabindex="0" name="submit" value="Информации" />', $dom->find('table input', 1)->outerHtml);
+	}
+
+	public function testScriptCleanerScriptTag()
+	{
+		$dom = new Dom;
+		$dom->load('
+		<p>.....</p>
+		<script>
+		Some code ... 
+		document.write("<script src=\'some script\'><\/script>") 
+		Some code ... 
+		</script>
+		<p>....</p>');
+		$this->assertEquals('....', $dom->getElementsByTag('p')[1]->innerHtml);
 	}
 }
