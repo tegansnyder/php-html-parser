@@ -162,34 +162,6 @@ class Dom {
 	}
 
 	/**
-	 * Parsers the html of the given string. Used for load(), loadFromFile(),
-	 * and loadFromUrl().
-	 *
-	 * @param string $str
-	 * @param array $option
-	 * @return $this
-	 */
-	public function loadStr($str, $option)
-	{
-		$this->options = new Options;
-		$this->options->setOptions($this->globalOptions)
-		              ->setOptions($option);
-
-		$this->rawSize = strlen($str);
-		$this->raw     = $str;
-
-		$html = $this->clean($str);
-
-		$this->size    = strlen($str);
-		$this->content = new Content($html);
-
-		$this->parse();
-		$this->detectCharset();
-
-		return $this;
-	}
-
-	/**
 	 * Sets a global options array to be used by all load calls.
 	 *
 	 * @param array $options
@@ -346,6 +318,34 @@ class Dom {
 		$this->content = new Content($html);
 
 		$this->parse();
+
+		return $this;
+	}
+
+	/**
+	 * Parsers the html of the given string. Used for load(), loadFromFile(),
+	 * and loadFromUrl().
+	 *
+	 * @param string $str
+	 * @param array $option
+	 * @return $this
+	 */
+	public function loadStr($str, $option)
+	{
+		$this->options = new Options;
+		$this->options->setOptions($this->globalOptions)
+		              ->setOptions($option);
+
+		$this->rawSize = strlen($str);
+		$this->raw     = $str;
+
+		$html = $this->clean($str);
+
+		$this->size    = strlen($str);
+		$this->content = new Content($html);
+
+		$this->parse();
+		// $this->detectCharset(); removed as not needed in tegans branch
 
 		return $this;
 	}
