@@ -1,3 +1,15 @@
+About this Fork
+==========================
+
+This fork is customized for a specific application. I have removed the encoding detection, instead leaving that up to the iconv settings in your application as sometimes detecting encoding is not the best way to go and you may want to force a specific type of encoding. I have also removed the exception on empty collections and instead return false. There are a few other additions to UTF-8. I don't intend this fork to ever be merged back to the parent. I may occasionally pull down and merge in any upstream changes.
+
+Special thanks to the original author (@paquettg) and contributors. Thanks!
+
+
+-----------------------------------------------------------------
+
+
+
 PHP Html Parser
 ==========================
 
