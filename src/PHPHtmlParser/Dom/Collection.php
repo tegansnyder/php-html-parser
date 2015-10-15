@@ -5,7 +5,6 @@ use Countable;
 use ArrayAccess;
 use ArrayIterator;
 use IteratorAggregate;
-use PHPHtmlParser\Exceptions\EmptyCollectionException;
 
 class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	
@@ -23,7 +22,6 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	 * @param string $method
 	 * @param array $arguments
 	 * @return mixed;
-     * @throws EmptyCollectionException
      */
 	public function __call($method, $arguments)
 	{
@@ -34,7 +32,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable {
 		}
         else
         {
-            throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            return false;
         }
 	}
 
@@ -44,7 +42,6 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	 *
 	 * @param mixed $key
 	 * @return mixed
-     * @throws EmptyCollectionException
      */
 	public function __get($key)
 	{
@@ -55,7 +52,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable {
 		}
         else
         {
-            throw new EmptyCollectionException('The collection does not contain any Nodes.');
+        	return false;
         }
 	}
 
@@ -64,7 +61,6 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable {
 	 * the collection.
 	 *
 	 * @return string
-     * @throws EmptyCollectionException
      */
 	public function __toString()
 	{
@@ -75,7 +71,7 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable {
 		}
         else
         {
-            throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            return false;
         }
 	}
 
