@@ -3,7 +3,6 @@ namespace PHPHtmlParser\Dom;
 
 use PHPHtmlParser\Exceptions\ChildNotFoundException;
 use PHPHtmlParser\Exceptions\CircularException;
-use stringEncode\Encode;
 
 /**
  * Inner node of the html tree, might have children.
@@ -19,25 +18,6 @@ abstract class InnerNode extends ArrayNode
      * @var array
      */
     protected $children = [];
-
-    /**
-     * Sets the encoding class to this node and propagates it
-     * to all its children.
-     *
-     * @param Encode $encode
-     * @return void
-     */
-    public function propagateEncoding(Encode $encode)
-    {
-        $this->encode = $encode;
-        $this->tag->setEncoding($encode);
-        // check children
-        foreach ($this->children as $id => $child) {
-            /** @var AbstractNode $node */
-            $node = $child['node'];
-            $node->propagateEncoding($encode);
-        }
-    }
 
     /**
      * Checks if this node has children.

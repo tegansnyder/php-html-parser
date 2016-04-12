@@ -117,17 +117,20 @@ class Dom
      * @param array $options
      * @return $this
      */
-    public function load($str, $options = [])
+    public function load($str, $options = [], $basic_mode = true)
     {
-        // check if it's a file
-        if (strpos($str, "\n") === false && is_file($str)) {
-            return $this->loadFromFile($str, $options);
+        if (!$basic_mode) {
+            // check if it's a file
+            if (is_file($str))
+            {
+                return $this->loadFromFile($str, $options);
+            }
+            // check if it's a url
+            if (preg_match("/^https?:\/\//i",$str))
+            {
+                return $this->loadFromUrl($str, $options);
+            }
         }
-        // check if it's a url
-        if (preg_match("/^https?:\/\//i", $str)) {
-            return $this->loadFromUrl($str, $options);
-        }
-
         return $this->loadStr($str, $options);
     }
 
@@ -186,7 +189,7 @@ class Dom
         $this->content = new Content($html);
 
         $this->parse();
-        $this->detectCharset();
+        //$this->detectCharset(); removed as not needed in tegans branch
 
         return $this;
     }
@@ -596,52 +599,5 @@ class Dom
 
         return $return;
     }
-
-    /**
-     * Attempts to detect the charset that the html was sent in.
-     *
-     * @return bool
-     */
-    protected function detectCharset()
-    {
-        // set the default
-        $encode = new Encode;
-        $encode->from($this->defaultCharset);
-        $encode->to($this->defaultCharset);
-
-        if ( ! is_null($this->options->enforceEncoding)) {
-            //  they want to enforce the given encoding
-            $encode->from($this->options->enforceEncoding);
-            $encode->to($this->options->enforceEncoding);
-
-            return false;
-        }
-
-        $meta = $this->root->find('meta[http-equiv=Content-Type]', 0);
-        if (is_null($meta)) {
-            // could not find meta tag
-            $this->root->propagateEncoding($encode);
-
-            return false;
-        }
-        $content = $meta->content;
-        if (empty($content)) {
-            // could not find content
-            $this->root->propagateEncoding($encode);
-
-            return false;
-        }
-        $matches = [];
-        if (preg_match('/charset=(.+)/', $content, $matches)) {
-            $encode->from(trim($matches[1]));
-            $this->root->propagateEncoding($encode);
-
-            return true;
-        }
-
-        // no charset found
-        $this->root->propagateEncoding($encode);
-
-        return false;
-    }
+    
 }

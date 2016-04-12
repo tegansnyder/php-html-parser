@@ -38,13 +38,6 @@ class Tag
     protected $noise = '';
 
     /**
-     * The encoding class to... encode the tags
-     *
-     * @var mixed
-     */
-    protected $encode = null;
-
-    /**
      * Sets up the tag with a name.
      *
      * @param $name
@@ -106,16 +99,6 @@ class Tag
     public function isSelfClosing()
     {
         return $this->selfClosing;
-    }
-
-    /**
-     * Sets the encoding type to be used.
-     *
-     * @param Encode $encode
-     */
-    public function setEncoding(Encode $encode)
-    {
-        $this->encode = $encode;
     }
 
     /**
@@ -216,9 +199,8 @@ class Tag
             return null;
         }
         $value = $this->attr[$key]['value'];
-        if (is_string($value) && ! is_null($this->encode)) {
-            // convert charset
-            $this->attr[$key]['value'] = $this->encode->convert($value);
+        if (is_string($value)) {
+            $this->attr[$key]['value'] = $value;
         }
 
         return $this->attr[$key];

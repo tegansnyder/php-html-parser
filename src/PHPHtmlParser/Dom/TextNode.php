@@ -55,21 +55,7 @@ class TextNode extends LeafNode
      */
     public function text()
     {
-        // convert charset
-        if ( ! is_null($this->encode)) {
-            if ( ! is_null($this->convertedText)) {
-                // we already know the converted value
-                return $this->convertedText;
-            }
-            $text = $this->encode->convert($this->text);
-
-            // remember the conversion
-            $this->convertedText = $text;
-
-            return $text;
-        } else {
-            return $this->text;
-        }
+        return $this->text;
     }
 
     /**

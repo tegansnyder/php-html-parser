@@ -37,7 +37,8 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
         if ($node instanceof AbstractNode) {
             return call_user_func_array([$node, $method], $arguments);
         } else {
-            throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            //throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            return false;
         }
     }
 
@@ -55,7 +56,8 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
         if ($node instanceof AbstractNode) {
             return $node->$key;
         } else {
-            throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            //throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            return false;
         }
     }
 
@@ -72,7 +74,8 @@ class Collection implements IteratorAggregate, ArrayAccess, Countable
         if ($node instanceof AbstractNode) {
             return (string)$node;
         } else {
-            throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            //throw new EmptyCollectionException('The collection does not contain any Nodes.');
+            return false;
         }
     }
 

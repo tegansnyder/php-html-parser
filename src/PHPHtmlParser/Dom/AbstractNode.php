@@ -4,7 +4,6 @@ namespace PHPHtmlParser\Dom;
 use PHPHtmlParser\Exceptions\CircularException;
 use PHPHtmlParser\Exceptions\ParentNotFoundException;
 use PHPHtmlParser\Selector;
-use stringEncode\Encode;
 
 /**
  * Dom node object.
@@ -45,13 +44,6 @@ abstract class AbstractNode
      * @var string
      */
     protected $id;
-
-    /**
-     * The encoding class used to encode strings.
-     *
-     * @var mixed
-     */
-    protected $encode;
 
     /**
      * Creates a unique spl hash for this node.
@@ -171,18 +163,6 @@ abstract class AbstractNode
         }
 
         $this->parent = null;
-    }
-
-    /**
-     * Sets the encoding class to this node.
-     *
-     * @param Encode $encode
-     * @return void
-     */
-    public function propagateEncoding(Encode $encode)
-    {
-        $this->encode = $encode;
-        $this->tag->setEncoding($encode);
     }
 
     /**
