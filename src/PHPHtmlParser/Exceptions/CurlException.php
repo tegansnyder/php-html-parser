@@ -1,4 +1,11 @@
 <?php
 namespace PHPHtmlParser\Exceptions;
 
-class CurlException extends \Exception {}
+/**
+ * Class CurlException
+ *
+ * @package PHPHtmlParser\Exceptions
+ */
+class CurlException extends \Exception
+{
+}

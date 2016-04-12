@@ -8,13 +8,47 @@ namespace PHPHtmlParser\Dom;
  *
  * This object is not to be used for any other reason.
  */
-class MockNode extends AbstractNode {
+class MockNode extends InnerNode
+{
 
-	public function innerHtml() {}
+    /**
+     * Mock of innner html.
+     */
+    public function innerHtml()
+    {
+    }
 
-	public function outerHtml() {}
+    /**
+     * Mock of outer html.
+     */
+    public function outerHtml()
+    {
+    }
 
-	public function text() {}
+    /**
+     * Mock of text.
+     */
+    public function text()
+    {
+    }
 
-	protected function clear() {}
+    /**
+     * Clear content of this node
+     */
+    protected function clear()
+    {
+        $this->innerHtml = null;
+        $this->outerHtml = null;
+        $this->text      = null;
+    }
+
+    /**
+     * Returns all children of this html node.
+     *
+     * @return array
+     */
+    protected function getIteratorArray()
+    {
+        return $this->getChildren();
+    }
 }
