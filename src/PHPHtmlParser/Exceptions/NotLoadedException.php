@@ -1,4 +1,11 @@
 <?php
 namespace PHPHtmlParser\Exceptions;
 
-final class NotLoadedException extends \Exception {}
+/**
+ * Class NotLoadedException
+ *
+ * @package PHPHtmlParser\Exceptions
+ */
+final class NotLoadedException extends \Exception
+{
+}
